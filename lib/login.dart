@@ -3,8 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:linkservicesflutter/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:linkservicesflutter/models/user.dart';
+import 'package:linkservicesflutter/category/utilisateurs.dart';
+
+String baseURL="http://localhost:4000/connection";
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -36,32 +39,55 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+  
+  /*
+ Map auth;
+  Future<http.Response> loginUser(String email,String password) async{
 
-  signIn(String email, pass) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    Map data = {
-      'email': email,
-      'password': pass
-    };
-    var jsonResponse = null;
-    var response = await http.post("YOUR_BASE_URL", body: data);
-    if(response.statusCode == 200) {
-      jsonResponse = json.decode(response.body);
-      if(jsonResponse != null) {
-        setState(() {
-          _isLoading = false;
-        });
-        sharedPreferences.setString("token", jsonResponse['token']);
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => MainPage()), (Route<dynamic> route) => false);
-      }
-    }
-    else {
-      setState(() {
-        _isLoading = false;
-      });
-      print(response.body);
-    }
+    email.trim();
+    password.trim();
+    
+    var response = await http.post(baseURL,body: User(email: email,password: password).toLogin());
+    debugPrint('Response : '+response.body);
+    return response;
   }
+
+  */
+
+/*
+  Future<String> loginWithEmailAndPassword(String email, String password) async {
+
+    Map data = {
+      'table': "user",
+      "values": {
+      'email': email,
+      'password': password,
+      }
+    };
+
+    print(data) ;
+
+    String body = json.encode(data);
+    
+    final res = await http.post('http://10.0.2.2:4000/connection',
+      headers: { 'Content-Type' : 'application/json'},
+      body: data
+    );
+
+    if (res.statusCode == 201) {
+    print("200") ;
+    return res.body;
+    }
+
+    
+    
+    return null;
+  }
+
+*/
+  
+
+
 
   Container buttonSection() {
     return Container(
@@ -69,17 +95,21 @@ class _LoginPageState extends State<LoginPage> {
       height: 40.0,
       padding: EdgeInsets.symmetric(horizontal: 15.0),
       margin: EdgeInsets.only(top: 15.0),
-      child: RaisedButton(
-        onPressed: emailController.text == "" || passwordController.text == "" ? null : () {
-          setState(() {
-            _isLoading = true;
-          });
-          signIn(emailController.text, passwordController.text);
+      child: FlatButton(
+      onPressed : () {
+        // loginWithEmailAndPassword(emailController.text, passwordController.text);
+          Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) =>
+                  Utilisateurs())
+              );
+        
         },
-        elevation: 0.0,
-        color: Colors.purple,
+        
+        color: Colors.black26,
         child: Text("Se connecter", style: TextStyle(color: Colors.white70)),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+
       ),
     );
   }
@@ -128,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
       child: Text("Link Services",
           style: TextStyle(
-              color: Colors.white70,
+              color: Colors.white,
               fontSize: 40.0,
               fontWeight: FontWeight.bold)),
     );
