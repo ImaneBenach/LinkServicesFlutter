@@ -53,9 +53,18 @@ class _UtilisateursState extends State<Utilisateurs> {
                       Container(
                         width: 150.0,
                         child: ListView.builder(
-                          itemBuilder: (context,index)=>EachList(this.Category[index]),
+                          itemBuilder: (context,index){
+                          // EachList(this.Category[index]),
+                          return ListTile(
+                            title: EachList(this.Category[index]),
+                            onTap: (){
+                              print("ok");
+                            },
+                          ); },
                           itemCount: Category.length,
+                          
                           ),
+                        
                         ),
                     Expanded(
                         child: GridView.builder(
