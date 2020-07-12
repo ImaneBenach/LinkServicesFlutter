@@ -1,14 +1,17 @@
 
 import 'package:flutter/material.dart' ;
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:linkservicesflutter/category/avertissement.dart';
+import 'package:linkservicesflutter/category/justificatifs.dart';
+import 'package:linkservicesflutter/category/utilisateurs.dart';
 
-class Avertissement extends StatefulWidget {
+class Signalement extends StatefulWidget {
   @override
-  _AvertissementState createState() => _AvertissementState();
+  _SignalementState createState() => _SignalementState();
 
 }
 
-class _AvertissementState extends State<Avertissement> {
+class _SignalementState extends State<Signalement> {
   int utilisateurCart = 0;
 
    List<String> Category = ['Utilisateurs','Justificatifs','Signalement','Avertissement','Profil'];
@@ -58,7 +61,34 @@ class _AvertissementState extends State<Avertissement> {
                           return ListTile(
                             title: EachList(this.Category[index]),
                             onTap: (){
-                              print("ok");
+                              if (this.Category[index] == 'Signalement')
+                                Navigator.of(context).push(
+                                 MaterialPageRoute(
+                                   builder: (context) =>
+                                      Signalement()
+                                      )
+                                    );
+                                else if(this.Category[index] == 'Justificatifs')
+                                Navigator.of(context).push(
+                                 MaterialPageRoute(
+                                   builder: (context) =>
+                                      Justificatifs()
+                                      )
+                                );  
+                                else if(this.Category[index] == 'Utilisateur')
+                                Navigator.of(context).push(
+                                 MaterialPageRoute(
+                                   builder: (context) =>
+                                      Utilisateurs()
+                                      )
+                                );                              
+                                else if(this.Category[index] == 'Avertissement')
+                                Navigator.of(context).push(
+                                 MaterialPageRoute(
+                                   builder: (context) =>
+                                      Avertissement()
+                                      )
+                                );
                             },
                           ); },
                           itemCount: Category.length,
@@ -142,7 +172,7 @@ class _AvertissementState extends State<Avertissement> {
           Text("${utilisateurModel.id}"), 
           RaisedButton(
             color: !utilisateurModel.banni ? Colors.red: Colors.orange,
-            child: Text( !utilisateurModel.banni ? "Envoyer un message" : " Banni avec succès", 
+            child: Text( !utilisateurModel.banni ? "Bannir" : " Banni avec succès", 
             style: TextStyle(
               color: Colors.white,
             ),),

@@ -1,14 +1,19 @@
 
 import 'package:flutter/material.dart' ;
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:linkservicesflutter/category/avertissement.dart';
+import 'package:linkservicesflutter/category/profil.dart';
+import 'package:linkservicesflutter/category/signalement.dart';
 
-class Avertissement extends StatefulWidget {
+import 'utilisateurs.dart';
+
+class Justificatifs extends StatefulWidget {
   @override
-  _AvertissementState createState() => _AvertissementState();
+  _JustificatifsState createState() => _JustificatifsState();
 
 }
 
-class _AvertissementState extends State<Avertissement> {
+class _JustificatifsState extends State<Justificatifs> {
   int utilisateurCart = 0;
 
    List<String> Category = ['Utilisateurs','Justificatifs','Signalement','Avertissement','Profil'];
@@ -58,7 +63,34 @@ class _AvertissementState extends State<Avertissement> {
                           return ListTile(
                             title: EachList(this.Category[index]),
                             onTap: (){
-                              print("ok");
+                              if (this.Category[index] == 'Signalement')
+                                Navigator.of(context).push(
+                                 MaterialPageRoute(
+                                   builder: (context) =>
+                                      Signalement()
+                                      )
+                                    );
+                                else if(this.Category[index] == 'Justificatifs')
+                                Navigator.of(context).push(
+                                 MaterialPageRoute(
+                                   builder: (context) =>
+                                      Justificatifs()
+                                      )
+                                );                              
+                                else if(this.Category[index] == 'Avertissement')
+                                Navigator.of(context).push(
+                                 MaterialPageRoute(
+                                   builder: (context) =>
+                                      Avertissement()
+                                      )
+                                );
+                                  else if(this.Category[index] == 'Profil')
+                                Navigator.of(context).push(
+                                 MaterialPageRoute(
+                                   builder: (context) =>
+                                      Profil()
+                                      )
+                                ); 
                             },
                           ); },
                           itemCount: Category.length,
@@ -141,8 +173,8 @@ class _AvertissementState extends State<Avertissement> {
           Text("${utilisateurModel.name}"),
           Text("${utilisateurModel.id}"), 
           RaisedButton(
-            color: !utilisateurModel.banni ? Colors.red: Colors.orange,
-            child: Text( !utilisateurModel.banni ? "Envoyer un message" : " Banni avec succès", 
+            color: !utilisateurModel.banni ? Colors.green: Colors.grey,
+            child: Text( !utilisateurModel.banni ? "Accepter" : " Accepter avec succès", 
             style: TextStyle(
               color: Colors.white,
             ),),
@@ -150,6 +182,20 @@ class _AvertissementState extends State<Avertissement> {
               setState((){
                 utilisateurModel.banni = !utilisateurModel.banni ;
                 if(utilisateurModel.banni) utilisateurCart++ ; 
+                else utilisateurCart--;
+              });
+            },
+          ),
+          RaisedButton(
+            color: !utilisateurModel.refuser? Colors.red: Colors.grey,
+            child: Text( !utilisateurModel.refuser ? "Refuser" : " Justificatif refusé", 
+            style: TextStyle(
+              color: Colors.white,
+            ),),
+            onPressed: (){
+              setState((){
+                utilisateurModel.refuser = !utilisateurModel.refuser ;
+                if(utilisateurModel.refuser) utilisateurCart++ ; 
                 else utilisateurCart--;
               });
             },
@@ -175,7 +221,8 @@ class UtilisateurModel{
   String name;
   String id;
   bool banni ;
-  UtilisateurModel({this.name, this.id, this.banni = false}) ;
+  bool refuser ;
+  UtilisateurModel({this.name, this.id, this.banni = false, this.refuser = false}) ;
 
 }
 

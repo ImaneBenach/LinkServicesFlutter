@@ -1,11 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:linkservicesflutter/models/user.dart';
 import 'package:linkservicesflutter/category/utilisateurs.dart';
-
 String baseURL="http://localhost:4000/connection";
 
 
@@ -39,9 +38,9 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  
   /*
- Map auth;
+  
+  Map auth;
   Future<http.Response> loginUser(String email,String password) async{
 
     email.trim();
@@ -54,25 +53,34 @@ class _LoginPageState extends State<LoginPage> {
 
   */
 
-/*
+
   Future<String> loginWithEmailAndPassword(String email, String password) async {
+  
+  
+    Map <String, String> dat = {
+      'email': email,
+      'password': password,
+    };
+    
+    String body = json.encode(dat);
 
     Map data = {
       'table': "user",
-      "values": {
-      'email': email,
-      'password': password,
-      }
+      "values": body
     };
 
     print(data) ;
-
-    String body = json.encode(data);
     
+    /*
     final res = await http.post('http://10.0.2.2:4000/connection',
-      headers: { 'Content-Type' : 'application/json'},
+      headers: { HttpHeaders.contentTypeHeader: "application/json"},
       body: data
     );
+    */
+
+    var uri = Uri.http('localhost:4000', '/connection/user}');
+   // var res = await http.post(uri, headers: {HttpHeaders.contentTypeHeader: 'application/json'});
+    final res = await http.post(uri, headers: {HttpHeaders.contentTypeHeader: 'application/json'}, body: body);
 
     if (res.statusCode == 201) {
     print("200") ;
@@ -80,13 +88,8 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     
-    
     return null;
   }
-
-*/
-  
-
 
 
   Container buttonSection() {
@@ -97,12 +100,14 @@ class _LoginPageState extends State<LoginPage> {
       margin: EdgeInsets.only(top: 15.0),
       child: FlatButton(
       onPressed : () {
-        // loginWithEmailAndPassword(emailController.text, passwordController.text);
+        //loginWithEmailAndPassword(emailController.text, passwordController.text);
+        
           Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) =>
                   Utilisateurs())
               );
+              
         
         },
         

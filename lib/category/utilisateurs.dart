@@ -1,6 +1,9 @@
 
 import 'package:flutter/material.dart' ;
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:linkservicesflutter/category/avertissement.dart';
+import 'package:linkservicesflutter/category/justificatifs.dart';
+import 'package:linkservicesflutter/category/signalement.dart';
 
 class Utilisateurs extends StatefulWidget {
   @override
@@ -58,7 +61,27 @@ class _UtilisateursState extends State<Utilisateurs> {
                           return ListTile(
                             title: EachList(this.Category[index]),
                             onTap: (){
-                              print("ok");
+                              if (this.Category[index] == 'Signalement')
+                                Navigator.of(context).push(
+                                 MaterialPageRoute(
+                                   builder: (context) =>
+                                      Signalement()
+                                      )
+                                    );
+                                else if(this.Category[index] == 'Justificatifs')
+                                Navigator.of(context).push(
+                                 MaterialPageRoute(
+                                   builder: (context) =>
+                                      Justificatifs()
+                                      )
+                                );                              
+                                else if(this.Category[index] == 'Avertissement')
+                                Navigator.of(context).push(
+                                 MaterialPageRoute(
+                                   builder: (context) =>
+                                      Avertissement()
+                                      )
+                                );
                             },
                           ); },
                           itemCount: Category.length,
@@ -189,9 +212,9 @@ class EachList extends StatelessWidget{
         padding: EdgeInsets.all(8.0),
         child: new Row(
           children: <Widget>[
-            new CircleAvatar(child: new Text(name[0]),),
-            new Padding(padding: EdgeInsets.only(right:8.0)),
-            new Text(name,style: TextStyle(fontSize: 11.5),)
+            new CircleAvatar(child: new Text(name[0]),radius: 13.0),
+            new Padding(padding: EdgeInsets.only(right:5.0)),
+            new Text(name,style: TextStyle(fontSize: 9.0),)
           ],
         ),
       ),
