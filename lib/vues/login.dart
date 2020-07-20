@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:linkservicesflutter/category/utilisateurs.dart';
 String baseURL="http://localhost:4000/connection";
 
@@ -38,49 +39,14 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  /*
-  
-  Map auth;
-  Future<http.Response> loginUser(String email,String password) async{
-
-    email.trim();
-    password.trim();
-    
-    var response = await http.post(baseURL,body: User(email: email,password: password).toLogin());
-    debugPrint('Response : '+response.body);
-    return response;
-  }
-
-  */
-
 
   Future<String> loginWithEmailAndPassword(String email, String password) async {
   
-  
-    Map <String, String> dat = {
-      'email': email,
-      'password': password,
-    };
-    
-    String body = json.encode(dat);
 
-    Map data = {
-      'table': "user",
-      "values": body
-    };
+    String sendjson = '{"email": "$email", "password": "$password"}';
 
-    print(data) ;
-    
-    /*
-    final res = await http.post('http://10.0.2.2:4000/connection',
-      headers: { HttpHeaders.contentTypeHeader: "application/json"},
-      body: data
-    );
-    */
-
-    var uri = Uri.http('localhost:4000', '/connection/user}');
-   // var res = await http.post(uri, headers: {HttpHeaders.contentTypeHeader: 'application/json'});
-    final res = await http.post(uri, headers: {HttpHeaders.contentTypeHeader: 'application/json'}, body: body);
+    var uri = Uri.http('localhost:4000', '/connection/user');
+    Response res = await http.post(uri, headers: {HttpHeaders.contentTypeHeader: 'application/json'}, body: sendjson);
 
     if (res.statusCode == 201) {
     print("200") ;
@@ -100,15 +66,15 @@ class _LoginPageState extends State<LoginPage> {
       margin: EdgeInsets.only(top: 15.0),
       child: FlatButton(
       onPressed : () {
-        //loginWithEmailAndPassword(emailController.text, passwordController.text);
-        
+        loginWithEmailAndPassword(emailController.text, passwordController.text);
+        /*
           Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) =>
                   Utilisateurs())
               );
               
-        
+        */
         },
         
         color: Colors.black26,

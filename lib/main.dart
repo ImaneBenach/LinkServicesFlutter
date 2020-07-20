@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:linkservicesflutter/constant.dart';
-import 'package:linkservicesflutter/home_screen.dart';
+import 'package:linkservicesflutter/vues/home_screen.dart';
 
 import 'constant.dart';
 

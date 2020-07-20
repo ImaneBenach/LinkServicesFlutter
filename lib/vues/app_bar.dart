@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:linkservicesflutter/default_button.dart';
-import 'package:linkservicesflutter/login.dart';
+import 'package:linkservicesflutter/vues/default_button.dart';
+import 'package:linkservicesflutter/vues/login.dart';
 
 class CustomAppBar extends StatelessWidget {
   @override

@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart' ;
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:linkservicesflutter/category/avertissement.dart';
-import 'package:linkservicesflutter/category/profil.dart';
 import 'package:linkservicesflutter/category/signalement.dart';
 
 import 'utilisateurs.dart';
@@ -88,7 +87,7 @@ class _JustificatifsState extends State<Justificatifs> {
                                 Navigator.of(context).push(
                                  MaterialPageRoute(
                                    builder: (context) =>
-                                      Profil()
+                                      Avertissement()
                                       )
                                 ); 
                             },
