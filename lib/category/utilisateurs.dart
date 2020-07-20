@@ -144,7 +144,7 @@ class _UtilisateursState extends State<Utilisateurs> {
       ),
     );
   }
-
+/*
   Widget utilisateursView(UtilisateurModel utilisateurModel) {
     return Card(
           child: Column(
@@ -182,7 +182,9 @@ class _UtilisateursState extends State<Utilisateurs> {
     );
 
   }
+  */
 
+  /*
   List<UtilisateurModel> utilisateurs = [
     UtilisateurModel(name: "Username 1 ", id: "id : 1"),
     UtilisateurModel(name: "Username 2 ", id: "id : 2"),
@@ -192,8 +194,12 @@ class _UtilisateursState extends State<Utilisateurs> {
     UtilisateurModel(name: "Username 6 ", id: "id : 6"),
     UtilisateurModel(name: "Username 7 ", id: "id : 7"),
   ];
+  */
+
+
 }
 
+/*
 class UtilisateurModel{
   String name;
   String id;
@@ -201,6 +207,7 @@ class UtilisateurModel{
   UtilisateurModel({this.name, this.id, this.banni = false}) ;
 
 }
+*/
 
 class EachList extends StatelessWidget{
   final String name;

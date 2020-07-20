@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:linkservicesflutter/category/utilisateurs.dart';
+import 'package:crypto/crypto.dart';
 String baseURL="http://localhost:4000/connection";
 
 
@@ -41,16 +42,16 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<String> loginWithEmailAndPassword(String email, String password) async {
-  
+    var bytes1 = utf8.encode(password);         
+    var digest1 = sha256.convert(bytes1);  
 
-    String sendjson = '{"email": "$email", "password": "$password"}';
-
+    String sendjson = '{"email": "$email", "password": "$digest1"}';
+    
     var uri = Uri.http('localhost:4000', '/connection/user');
     Response res = await http.post(uri, headers: {HttpHeaders.contentTypeHeader: 'application/json'}, body: sendjson);
 
     if (res.statusCode == 201) {
-    print("200") ;
-    return res.body;
+        return res.body;
     }
 
     
@@ -67,14 +68,14 @@ class _LoginPageState extends State<LoginPage> {
       child: FlatButton(
       onPressed : () {
         loginWithEmailAndPassword(emailController.text, passwordController.text);
-        /*
+        
           Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) =>
                   Utilisateurs())
               );
               
-        */
+        
         },
         
         color: Colors.black26,
